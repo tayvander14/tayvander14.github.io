@@ -4,8 +4,8 @@
         <title> Taylor's Website</title>
         <style>
             body {
-                background: rgb(125, 198, 205);
-                color: rgb(45, 45, 45);
+                background: #666666;
+                color: rgb(0, 0, 0);
                 padding: 10px;
                 font-family: arial;
             }
@@ -16,15 +16,17 @@
 
             /* navigation menu */
             nav {
-                background: rgb(239, 80, 41);
+                border-radius: 25px;
+                background: #00b8e6);
                 margin: 0 auto;
+                margin-bottom: 20px;
                 display: flex;
                 padding: 10px;
             }
             h1 {
                 display: flex;
                 align-items: center;
-                color: white;
+                color: #66e0ff;
                 flex: 1;
                 margin: 0;
             }
@@ -37,12 +39,12 @@
             }
             a {
                 text-decoration: none;
-                color: #fff;
+                color: #faf6eb;
             }
 
             /* main container area beneath menu */
             main {
-                background: rgb(245, 238, 219);
+                background: #faf6eb;
                 display: flex;
             }
             .sidebar {
@@ -51,31 +53,35 @@
             }
             .sidebar-img {
                 width: 200px;
+                border: 2px solid black;
+                border-radius: 20px;
             }
             .content {
                 flex: 1;
                 padding: 15px;
             }
             #interests {
-                border: 4px silver ridge;
+                border: 2px solid black;
+                border-radius: 20px;
                 padding: 8px;
             }
             h2, h3 {
                 margin: 0px;
+                color: #66e0ff;
             }
 </style>  
     </head>
     
     <body>
         <!-- All content goes here -->
-        <div> 
+        <div id = #all-contents> 
             <nav>
                 <h1>Taylor's Terrific Website</h1>
-                <ul>
-                    <li>
+                <ul id = "nav ul">
+                    <li class = "nav li">
                         <a href = "index.html"> Home </a>
                     </li>
-                    <li>
+                    <li class = "nav li">
                         <a href = "portfolio.html"> Portfolio </a>
                     </li>
                 </ul>
@@ -83,18 +89,18 @@
 
             <main>
                 <!-- Sidebar section -->
-                <div>
-                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3uF8KPfyPv9IJpXXLzrFQuFFMdXVbDnPLw&usqp=CAU">
+                <div class = "sidebar">
+                    <img class = "sidebar-img" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRX3uF8KPfyPv9IJpXXLzrFQuFFMdXVbDnPLw&usqp=CAU">
                 </div>
 
                 <!-- Content section-->
-                <div>
+                <div class = "content">
                     <h2>Taylor</h2>
 
                     <p>Student at Northshore High</p>
 
                     <!-- Interests section -->
-                    <div>
+                    <div id = "interests">
                         <h3>Interests</h3>
                         <ul>
                             <li>Reading</li>
