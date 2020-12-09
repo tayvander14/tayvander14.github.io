@@ -5,7 +5,7 @@
         <style>
             body {
                 background:#666666;
-                color: rgb(0, 0, 0);
+                color: white;
                 padding: 10px;
                 font-family: arial;
             }
@@ -17,7 +17,7 @@
             /* navigation menu */
             nav {
                 border-radius: 25px;
-                background: #00b8e6);
+                background: #b3ffff;
                 margin: 0 auto;
                 margin-bottom: 20px;
                 display: flex;
@@ -26,9 +26,9 @@
             h1 {
                 display: flex;
                 align-items: center;
-                color: #b3ffff;
                 flex: 1;
                 margin: 0;
+                color: #000080;
             }
             #nav-ul {
                 list-style-image: none;
@@ -39,11 +39,15 @@
             }
             a {
                 text-decoration: none;
-                color: white;
+                color: #000080;
+            }
+            p{
+                color: #000080;
             }
 
             /* main container area beneath menu */
             main {
+                border-radius: 25px;
                 background: #b3ffff;
                 display: flex;
             }
@@ -62,14 +66,17 @@
                 padding: 15px;
             }
             #interests {
-                border: 2px solid black;
+                background-color: #666666;
                 border-radius: 20px;
                 padding: 8px;
-                background-color: white;
             }
-            h2, h3 {
+            h2{
                 margin: 0px;
-                color: #666666;
+                color: #000080;
+            }
+             h3{
+                margin: 0px;
+                color: #000080;
             }
 </style>  
     </head>
@@ -79,11 +86,11 @@
         <div id = #all-contents> 
             <nav>
                 <h1>Taylor's Website</h1>
-                <ul id = "nav ul">
-                    <li class = "nav li">
+                <ul id = "nav-ul">
+                    <li class = "nav-li">
                         <a href = "index.html"> Home </a>
                     </li>
-                    <li class = "nav li">
+                    <li class = "nav-li">
                         <a href = "portfolio.html"> Portfolio </a>
                     </li>
                 </ul>
@@ -96,10 +103,8 @@
                 </div>
 
                 <!-- Content section-->
-                <div class = "content">
-                
+                <div class = "content">    
                     <h2>Taylor</h2>
-
                     <p>Student at Northshore High</p>
 
                     <!-- Interests section -->
