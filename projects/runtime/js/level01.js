@@ -16,9 +16,9 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
-                { "type": "sawblade", "x": 400, "y": groundY },
-                { "type": "sawblade", "x": 600, "y": groundY },
-                { "type": "sawblade", "x": 900, "y": groundY },
+                { "type": "sawblade", "x": 400, "y": groundY - 100},
+                { "type": "sawblade", "x": 600, "y": groundY - 100},
+                { "type": "sawblade", "x": 900, "y": groundY - 100},
             ]
         };
         window.levelData = levelData;
@@ -27,10 +27,98 @@ var level01 = function (window) {
 
         // TODO 6 and on go here
         // BEGIN EDITING YOUR CODE HERE
+        function createSawBlade(x, y){
+            var hitZoneSize = 25;
+            var damageFromObstacle = 10;
+            var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            sawBladeHitZone.x = x;
+            sawBladeHitZone.y = y;
 
+            game.addGameItem(sawBladeHitZone); 
+
+            var obstacleImage = draw.bitmap('img/sawblade.png');
+            sawBladeHitZone.addChild(obstacleImage);
+            obstacleImage.x = -1 * hitZoneSize;
+            obstacleImage.y = -1 * hitZoneSize;  
+        }
+
+        for (var i = 0; i < levelData.gameItems.length; i++){
+            var gameItemObject = levelData.gameItems[i];
+            if (gameItemObject.type === 'sawblade'){
+                createSawBlade(gameItemObject.x, gameItemObject.y)
+            }
+        }
+
+        function createBox(x, y){
+            var hitZoneSize = 15;
+            var damageFromObstacle = 5;
+            var boxHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            boxHitZone.x = x;
+            boxHitZone.y = y;
+            game.addGameItem(boxHitZone);   
+            var obstacleImage = draw.bitmap('img/sawblade.png');
+            boxHitZone.addChild(obstacleImage);
+            obstacleImage.x = -1 * hitZoneSize;
+            obstacleImage.y = -1 * hitZoneSize;   
+        }
+
+        createBox(200, 200);
+
+        function createRedSquare(x, y){
+            var enemy = game.createGameItem('enemy',25);
+            var redSquare = draw.rect(50,50,'red');
+            redSquare.x = -25;
+            redSquare.y = -25;
+            enemy.addChild(redSquare);
+
+            enemy.x = x;
+            enemy.y = y;
+
+            game.addGameItem(enemy);
+
+            enemy.velocityX = -1;
+
+            enemy.rotationalVelocity = 10;
+
+            enemy.onPlayerCollision = function(){
+                console.log('The enemy has hit Halle');
+                game.changeIntegrity(-10);
+                enemy.fadeOut();
+            }
+
+            enemy.onProjectileCollision = function(){
+                console.log('Halle has hit the enemy');
+                game.increaseScore(100);
+                enemy.shrink();
+            }
+        }
+
+        createRedSquare(400,groundY-10);
+        createRedSquare(800,groundY-100);
+        createRedSquare(1200,groundY-50);
         
-        
-        
+        function createReward(x,y) {
+            var reward = game.createGameItem('reward',25);
+            var blueSquare = draw.rect(50,50,'blue');
+            blueSquare.x = -25;
+            blueSquare.y = -25;
+            reward.addChild(blueSquare);
+
+            reward.x = x;
+            reward.y = y;
+
+            game.addGameItem(reward);
+
+            reward.onPlayerCollision = function(){
+                console.log('Halle has gathered the reward');
+                game.changeIntegrity(-10);
+                reward.fadeOut();
+            }
+
+            createReward(300,groundY-10);
+            createReward(700,groundY-100);
+            createReward(1000,groundY-50);
+        }
         // DO NOT EDIT CODE BELOW HERE
     }
 };
