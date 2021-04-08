@@ -16,9 +16,13 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
+                { "type": "sawblade", "x": 100, "y": groundY - 100},
                 { "type": "sawblade", "x": 400, "y": groundY - 100},
                 { "type": "sawblade", "x": 600, "y": groundY - 100},
                 { "type": "sawblade", "x": 900, "y": groundY - 100},
+                { "type": "spikes", "x": 900, "y": groundY - 100},
+                { "type": "spikes", "x": 600, "y": groundY - 100},
+                { "type": "spikes", "x": 300, "y": groundY - 100},
             ]
         };
         window.levelData = levelData;
@@ -45,24 +49,27 @@ var level01 = function (window) {
         for (var i = 0; i < levelData.gameItems.length; i++){
             var gameItemObject = levelData.gameItems[i];
             if (gameItemObject.type === 'sawblade'){
-                createSawBlade(gameItemObject.x, gameItemObject.y)
+                createSawBlade(gameItemObject.x, gameItemObject.y);
+            }
+            if (gameItemObject.type === 'spikes'){
+                createSpikes(gameItemObject.x, gameItemObject.y);
             }
         }
-
-        function createBox(x, y){
+        
+        function createSpikes(x, y){
             var hitZoneSize = 15;
             var damageFromObstacle = 5;
-            var boxHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
-            boxHitZone.x = x;
-            boxHitZone.y = y;
-            game.addGameItem(boxHitZone);   
-            var obstacleImage = draw.bitmap('img/sawblade.png');
-            boxHitZone.addChild(obstacleImage);
+            var spikesHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            spikesHitZone.x = x;
+            spikesHitZone.y = y;
+
+            game.addGameItem(boxHitZone);  
+
+            var obstacleImage = draw.bitmap('img/Spikes.png');
+            spikesHitZone.addChild(obstacleImage);
             obstacleImage.x = -1 * hitZoneSize;
             obstacleImage.y = -1 * hitZoneSize;   
         }
-
-        createBox(200, 200);
 
         function createRedSquare(x, y){
             var enemy = game.createGameItem('enemy',25);
