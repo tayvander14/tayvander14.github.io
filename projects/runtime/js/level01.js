@@ -16,18 +16,23 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
-                { "type": "sawblade", "x": 100, "y": groundY - 100},
-                { "type": "sawblade", "x": 400, "y": groundY - 100},
-                { "type": "sawblade", "x": 600, "y": groundY - 100},
-                { "type": "sawblade", "x": 900, "y": groundY - 100},
-                { "type": "spikes", "x": 900, "y": groundY - 100},
+                { "type": "sawblade", "x": 1800, "y": groundY + 10},
+                { "type": "sawblade", "x": 400, "y": groundY + 10},
+                { "type": "sawblade", "x": 900, "y": groundY - 120},
+                /*{ "type": "spikes", "x": 900, "y": groundY - 100},
                 { "type": "spikes", "x": 600, "y": groundY - 100},
-                { "type": "spikes", "x": 300, "y": groundY - 100},
+                { "type": "spikes", "x": 300, "y": groundY - 100},*/
+                { "type": "enemy", "x": 400, "y": groundY - 50},
+                { "type": "enemy", "x": 1000, "y": groundY - 50},
+                { "type": "enemy", "x": 1500, "y": groundY - 50},
+                { "type": "reward", "x": 800, "y": groundY - 50},
+                { "type": "reward", "x": 2000, "y": groundY - 50},
+                { "type": "reward", "x": 1000, "y": groundY - 50},
             ]
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(true);
+        game.setDebugMode(false);
 
         // TODO 6 and on go here
         // BEGIN EDITING YOUR CODE HERE
@@ -54,19 +59,25 @@ var level01 = function (window) {
             if (gameItemObject.type === 'spikes'){
                 createSpikes(gameItemObject.x, gameItemObject.y);
             }
+            if (gameItemObject.type === 'enemy'){
+                createRedSquare(gameItemObject.x, gameItemObject.y)
+            }
+            if (gameItemObject.type === 'reward'){
+                createReward(gameItemObject.x, gameItemObject.y)
+            }
         }
         
         function createSpikes(x, y){
             var hitZoneSize = 15;
-            var damageFromObstacle = 5;
-            var spikesHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
-            spikesHitZone.x = x;
-            spikesHitZone.y = y;
+            var damageFromObstacle = 15;
+            var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            sawBladeHitZone.x = x;
+            sawBladeHitZone.y = y;
 
-            game.addGameItem(boxHitZone);  
+            game.addGameItem(sawBladeHitZone); 
 
             var obstacleImage = draw.bitmap('img/Spikes.png');
-            spikesHitZone.addChild(obstacleImage);
+            sawBladeHitZone.addChild(obstacleImage);
             obstacleImage.x = -1 * hitZoneSize;
             obstacleImage.y = -1 * hitZoneSize;   
         }
@@ -99,10 +110,6 @@ var level01 = function (window) {
                 enemy.shrink();
             }
         }
-
-        createRedSquare(400,groundY-10);
-        createRedSquare(800,groundY-100);
-        createRedSquare(1200,groundY-50);
         
         function createReward(x,y) {
             var reward = game.createGameItem('reward',25);
@@ -116,15 +123,13 @@ var level01 = function (window) {
 
             game.addGameItem(reward);
 
+            reward.velocityX = -1;
+
             reward.onPlayerCollision = function(){
                 console.log('Halle has gathered the reward');
-                game.changeIntegrity(-10);
+                game.changeIntegrity(10);
                 reward.fadeOut();
             }
-
-            createReward(300,groundY-10);
-            createReward(700,groundY-100);
-            createReward(1000,groundY-50);
         }
         // DO NOT EDIT CODE BELOW HERE
     }
