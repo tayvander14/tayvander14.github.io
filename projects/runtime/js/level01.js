@@ -22,17 +22,20 @@ var level01 = function (window) {
                 /*{ "type": "spikes", "x": 900, "y": groundY - 100},
                 { "type": "spikes", "x": 600, "y": groundY - 100},
                 { "type": "spikes", "x": 300, "y": groundY - 100},*/
-                { "type": "enemy", "x": 400, "y": groundY - 50},
-                { "type": "enemy", "x": 1000, "y": groundY - 50},
-                { "type": "enemy", "x": 1500, "y": groundY - 50},
-                { "type": "reward", "x": 800, "y": groundY - 50},
-                { "type": "reward", "x": 2000, "y": groundY - 50},
-                { "type": "reward", "x": 1000, "y": groundY - 50},
+                { "type": "seagulls", "x": 400, "y": groundY - 130},
+                { "type": "seagulls", "x": 1000, "y": groundY - 130},
+                { "type": "seagulls", "x": 1500, "y": groundY - 130},
+                { "type": "seashells", "x": 800, "y": groundY - 10},
+                { "type": "seashells", "x": 2000, "y": groundY - 10},
+                { "type": "seashells", "x": 1000, "y": groundY - 10},
+                { "type": "pearls", "x": 500, "y": groundY - 150},
+                { "type": "pearls", "x": 1500, "y": groundY - 150},
+                { "type": "pearls", "x": 1800, "y": groundY - 150},
             ]
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(false);
+        game.setDebugMode(true);
 
         // TODO 6 and on go here
         // BEGIN EDITING YOUR CODE HERE
@@ -50,23 +53,22 @@ var level01 = function (window) {
             obstacleImage.x = -1 * hitZoneSize;
             obstacleImage.y = -1 * hitZoneSize;  
         }
-
-        for (var i = 0; i < levelData.gameItems.length; i++){
-            var gameItemObject = levelData.gameItems[i];
-            if (gameItemObject.type === 'sawblade'){
-                createSawBlade(gameItemObject.x, gameItemObject.y);
-            }
-            if (gameItemObject.type === 'spikes'){
-                createSpikes(gameItemObject.x, gameItemObject.y);
-            }
-            if (gameItemObject.type === 'enemy'){
-                createRedSquare(gameItemObject.x, gameItemObject.y)
-            }
-            if (gameItemObject.type === 'reward'){
-                createReward(gameItemObject.x, gameItemObject.y)
-            }
-        }
         
+        function createSawBlade(x, y){
+            var hitZoneSize = 25;
+            var damageFromObstacle = 10;
+            var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            sawBladeHitZone.x = x;
+            sawBladeHitZone.y = y;
+
+            game.addGameItem(sawBladeHitZone); 
+
+            var obstacleImage = draw.bitmap('img/sawblade.png');
+            sawBladeHitZone.addChild(obstacleImage);
+            obstacleImage.x = -1 * hitZoneSize;
+            obstacleImage.y = -1 * hitZoneSize;  
+        }
+
         function createSpikes(x, y){
             var hitZoneSize = 15;
             var damageFromObstacle = 15;
@@ -82,55 +84,99 @@ var level01 = function (window) {
             obstacleImage.y = -1 * hitZoneSize;   
         }
 
-        function createRedSquare(x, y){
-            var enemy = game.createGameItem('enemy',25);
-            var redSquare = draw.rect(50,50,'red');
-            redSquare.x = -25;
-            redSquare.y = -25;
-            enemy.addChild(redSquare);
+        function createSeagulls(x, y){
+            var seagulls = game.createGameItem('seagulls',25);
+            var seagull = draw.bitmap('img/seagull.png');
+            seagull.x = -25;
+            seagull.y = -25;
+            seagull.scaleX = 0.09; 
+            seagull.scaleY = 0.07; 
+            seagulls.addChild(seagull);
 
-            enemy.x = x;
-            enemy.y = y;
+            seagulls.x = x;
+            seagulls.y = y;
 
-            game.addGameItem(enemy);
+            game.addGameItem(seagulls);
 
-            enemy.velocityX = -1;
+            seagulls.velocityX = -1;
 
-            enemy.rotationalVelocity = 10;
-
-            enemy.onPlayerCollision = function(){
-                console.log('The enemy has hit Halle');
+            seagull.onPlayerCollision = function(){
+                console.log('The seagull has hit Halle');
                 game.changeIntegrity(-10);
-                enemy.fadeOut();
+                seagulls.fadeOut();
             }
 
-            enemy.onProjectileCollision = function(){
-                console.log('Halle has hit the enemy');
+            seagull.onProjectileCollision = function(){
+                console.log('Halle has hit the seagull');
                 game.increaseScore(100);
-                enemy.shrink();
+                seagulls.shrink();
             }
         }
         
-        function createReward(x,y) {
-            var reward = game.createGameItem('reward',25);
-            var blueSquare = draw.rect(50,50,'blue');
-            blueSquare.x = -25;
-            blueSquare.y = -25;
-            reward.addChild(blueSquare);
+        function createSeaShells(x,y) {
+            var seashells = game.createGameItem('seashells', 25);
+            var seaShell = draw.bitmap('img/seashell.png')
+            seaShell.x = -25; 
+            seaShell.y = -25;
+            seaShell.scaleX = 0.04; 
+            seaShell.scaleY = 0.04;
+            seashells.addChild(seaShell);
 
-            reward.x = x;
-            reward.y = y;
+            seashells.x = x; 
+            seashells.y = y; 
 
-            game.addGameItem(reward);
+            game.addGameItem(seashells);
 
-            reward.velocityX = -1;
+            seashells.velocityX = -1;
 
-            reward.onPlayerCollision = function(){
+            seashells.onPlayerCollision = function(){
                 console.log('Halle has gathered the reward');
                 game.changeIntegrity(10);
-                reward.fadeOut();
+                seashells.fadeOut();
             }
         }
+
+        function createPearls(x,y) {
+            var pearls = game.createGameItem('pearls', 25);
+            var pearl = draw.bitmap('img/pearl.png');
+            pearl.x = -25;
+            pearl.y = -25;
+            pearl.scaleX = 0.08; 
+            pearl.scaleY = 0.08;
+            pearls.addChild(pearl);
+
+            pearls.x = x; 
+            pearls.y = y; 
+
+            game.addGameItem(pearls);
+
+            pearls.velocityX = -1;
+
+            pearls.onPlayerCollision = function(){
+                console.log('Halle has gathered the reward');
+                game.increaseScore(100);
+                pearls.fadeOut();
+            }
+        }
+
+            for (var i = 0; i < levelData.gameItems.length; i++){
+                var gameItemObject = levelData.gameItems[i];
+                if (gameItemObject.type === 'sawblade'){
+                    createSawBlade(gameItemObject.x, gameItemObject.y);
+                }
+                if (gameItemObject.type === 'spikes'){
+                    createSpikes(gameItemObject.x, gameItemObject.y);
+                }
+                if (gameItemObject.type === 'seagulls'){
+                    createSeagulls(gameItemObject.x, gameItemObject.y)
+                }
+                if (gameItemObject.type === 'seashells'){
+                    createSeaShells(gameItemObject.x, gameItemObject.y)
+                }
+                if (gameItemObject.type === 'pearls'){
+                    createPearls(gameItemObject.x, gameItemObject.y)
+                }
+            }
         // DO NOT EDIT CODE BELOW HERE
     }
 };
