@@ -22,9 +22,9 @@ var level01 = function (window) {
                 /*{ "type": "spikes", "x": 900, "y": groundY - 100},
                 { "type": "spikes", "x": 600, "y": groundY - 100},
                 { "type": "spikes", "x": 300, "y": groundY - 100},*/
-                { "type": "seagulls", "x": 400, "y": groundY - 130},
-                { "type": "seagulls", "x": 1000, "y": groundY - 130},
-                { "type": "seagulls", "x": 1500, "y": groundY - 130},
+                { "type": "seagulls", "x": 400, "y": groundY - 30},
+                { "type": "seagulls", "x": 1000, "y": groundY - 30},
+                { "type": "seagulls", "x": 1500, "y": groundY - 40},
                 { "type": "seashells", "x": 800, "y": groundY - 10},
                 { "type": "seashells", "x": 2000, "y": groundY - 10},
                 { "type": "seashells", "x": 1000, "y": groundY - 10},
@@ -35,7 +35,7 @@ var level01 = function (window) {
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(true);
+        game.setDebugMode(false);
 
         // TODO 6 and on go here
         // BEGIN EDITING YOUR CODE HERE
@@ -53,42 +53,12 @@ var level01 = function (window) {
             obstacleImage.x = -1 * hitZoneSize;
             obstacleImage.y = -1 * hitZoneSize;  
         }
-        
-        function createSawBlade(x, y){
-            var hitZoneSize = 25;
-            var damageFromObstacle = 10;
-            var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
-            sawBladeHitZone.x = x;
-            sawBladeHitZone.y = y;
-
-            game.addGameItem(sawBladeHitZone); 
-
-            var obstacleImage = draw.bitmap('img/sawblade.png');
-            sawBladeHitZone.addChild(obstacleImage);
-            obstacleImage.x = -1 * hitZoneSize;
-            obstacleImage.y = -1 * hitZoneSize;  
-        }
-
-        function createSpikes(x, y){
-            var hitZoneSize = 15;
-            var damageFromObstacle = 15;
-            var sawBladeHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
-            sawBladeHitZone.x = x;
-            sawBladeHitZone.y = y;
-
-            game.addGameItem(sawBladeHitZone); 
-
-            var obstacleImage = draw.bitmap('img/Spikes.png');
-            sawBladeHitZone.addChild(obstacleImage);
-            obstacleImage.x = -1 * hitZoneSize;
-            obstacleImage.y = -1 * hitZoneSize;   
-        }
 
         function createSeagulls(x, y){
             var seagulls = game.createGameItem('seagulls',25);
             var seagull = draw.bitmap('img/seagull.png');
-            seagull.x = -25;
-            seagull.y = -25;
+            seagull.x = -45;
+            seagull.y = -70;
             seagull.scaleX = 0.09; 
             seagull.scaleY = 0.07; 
             seagulls.addChild(seagull);
@@ -100,13 +70,13 @@ var level01 = function (window) {
 
             seagulls.velocityX = -1;
 
-            seagull.onPlayerCollision = function(){
+            seagulls.onPlayerCollision = function(){
                 console.log('The seagull has hit Halle');
                 game.changeIntegrity(-10);
                 seagulls.fadeOut();
             }
 
-            seagull.onProjectileCollision = function(){
+            seagulls.onProjectileCollision = function(){
                 console.log('Halle has hit the seagull');
                 game.increaseScore(100);
                 seagulls.shrink();
@@ -116,8 +86,8 @@ var level01 = function (window) {
         function createSeaShells(x,y) {
             var seashells = game.createGameItem('seashells', 25);
             var seaShell = draw.bitmap('img/seashell.png')
-            seaShell.x = -25; 
-            seaShell.y = -25;
+            seaShell.x = -40; 
+            seaShell.y = -40;
             seaShell.scaleX = 0.04; 
             seaShell.scaleY = 0.04;
             seashells.addChild(seaShell);
@@ -139,8 +109,8 @@ var level01 = function (window) {
         function createPearls(x,y) {
             var pearls = game.createGameItem('pearls', 25);
             var pearl = draw.bitmap('img/pearl.png');
-            pearl.x = -25;
-            pearl.y = -25;
+            pearl.x = -40;
+            pearl.y = -40;
             pearl.scaleX = 0.08; 
             pearl.scaleY = 0.08;
             pearls.addChild(pearl);

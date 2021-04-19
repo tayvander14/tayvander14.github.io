@@ -51,7 +51,7 @@ var background = function (window) {
             var sand = draw.bitmap('img/sand.png')
             sand.x = -80; 
             sand.y = groundY - 50; 
-            sand.scaleX = 3.0; 
+            sand.scaleX = 4.5; 
             sand.scaleY = 4.5; 
             background.addChild(sand);
 
