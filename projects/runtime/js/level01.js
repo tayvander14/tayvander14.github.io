@@ -16,26 +16,31 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
-                { "type": "sawblade", "x": 1800, "y": groundY + 10},
+                /*{ "type": "sawblade", "x": 1800, "y": groundY + 10},
                 { "type": "sawblade", "x": 400, "y": groundY + 10},
                 { "type": "sawblade", "x": 900, "y": groundY - 120},
-                /*{ "type": "spikes", "x": 900, "y": groundY - 100},
+                { "type": "spikes", "x": 900, "y": groundY - 100},
                 { "type": "spikes", "x": 600, "y": groundY - 100},
                 { "type": "spikes", "x": 300, "y": groundY - 100},*/
                 { "type": "seagulls", "x": 400, "y": groundY - 30},
-                { "type": "seagulls", "x": 1000, "y": groundY - 30},
-                { "type": "seagulls", "x": 1500, "y": groundY - 40},
+                { "type": "seagulls", "x": 1300, "y": groundY - 30},
+                { "type": "seagulls", "x": 1900, "y": groundY - 40},
+                { "type": "seagulls", "x": 900, "y": groundY - 40},
                 { "type": "seashells", "x": 800, "y": groundY - 10},
                 { "type": "seashells", "x": 2000, "y": groundY - 10},
                 { "type": "seashells", "x": 1000, "y": groundY - 10},
                 { "type": "pearls", "x": 500, "y": groundY - 150},
                 { "type": "pearls", "x": 1500, "y": groundY - 150},
                 { "type": "pearls", "x": 1800, "y": groundY - 150},
+                { "type": "crabs", "x": 500, "y": groundY + 10},
+                { "type": "crabs", "x": 1000, "y": groundY + 10},
+                { "type": "crabs", "x": 1800, "y": groundY + 10},
+                { "type": "crabs", "x": 2200, "y": groundY + 10},
             ]
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(false);
+        game.setDebugMode(true);
 
         // TODO 6 and on go here
         // BEGIN EDITING YOUR CODE HERE
@@ -124,9 +129,26 @@ var level01 = function (window) {
 
             pearls.onPlayerCollision = function(){
                 console.log('Halle has gathered the reward');
-                game.increaseScore(100);
+                game.increaseScore(300);
                 pearls.fadeOut();
             }
+        }
+
+        function createCrabs(x, y){
+            var hitZoneSize = 25;
+            var damageFromObstacle = 10;
+            var crabsHitZone = game.createObstacle(hitZoneSize, damageFromObstacle);
+            crabsHitZone.x = x;
+            crabsHitZone.y = y;
+
+            game.addGameItem(crabsHitZone); 
+
+            var obstacleImage = draw.bitmap('img/crab.png');
+            obstacleImage.scaleX = 0.07; 
+            obstacleImage.scaleY = 0.07;
+            crabsHitZone.addChild(obstacleImage);
+            obstacleImage.x = -50;
+            obstacleImage.y = -50; 
         }
 
             for (var i = 0; i < levelData.gameItems.length; i++){
@@ -145,6 +167,9 @@ var level01 = function (window) {
                 }
                 if (gameItemObject.type === 'pearls'){
                     createPearls(gameItemObject.x, gameItemObject.y)
+                }
+                if (gameItemObject.type === 'crabs'){
+                    createCrabs(gameItemObject.x, gameItemObject.y);
                 }
             }
         // DO NOT EDIT CODE BELOW HERE
