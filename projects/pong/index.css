@@ -1,0 +1,59 @@
+
+body {
+    background-color: black;
+  }
+  
+  #board {
+    width: 1000px;
+    height: 700px;
+    border: 6px solid #4dd2ff;
+    background-color: black;
+    position: relative;
+  }
+  
+  #leftPaddle {
+    background-color: #4dd2ff;
+    width: 20px;
+    height: 80px;
+    position: absolute;
+    border: 2px solid white;
+  }
+
+  #rightPaddle{
+    background-color: #4dd2ff;
+    width: 20px;
+    height: 80px;
+    position: absolute;
+    border: 2px solid white;
+  }
+
+  #ball{
+    background-color: white; 
+    width: 20px; 
+    height: 20px; 
+    position: absolute; 
+    left: 100px; 
+    border-radius: 10px; 
+  }
+
+  #score1{
+    color: white;
+    font-size: 3vw;
+    font-family: "Lucida Console", "Courier New", monospace;
+    line-height: 0;
+  }
+  
+  #score2{
+    color: white; 
+    font-size: 3vw;
+    font-family: "Lucida Console", "Courier New", monospace;
+    line-height: 0;
+  }
+
+  #button{
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 2vw;
+    background-color: #4dd2ff;
+    color: black;
+    border-color: white;
+  }
