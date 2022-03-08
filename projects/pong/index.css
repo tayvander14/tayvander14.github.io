@@ -50,7 +50,7 @@ body {
     line-height: 0;
   }
 
-  #button{
+  #restart{
     font-family: "Lucida Console", "Courier New", monospace;
     font-size: 2vw;
     background-color: #4dd2ff;
