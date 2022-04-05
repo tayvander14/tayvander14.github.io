@@ -1,0 +1,40 @@
+
+body {
+  background-color: darkgreen;
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+}
+
+#apple {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 220px;
+  top: 200px; 
+}
+
+#head{
+  background-color: blue;
+}
+
+.snake{
+  background-color: rgb(51, 187, 103);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+#score{
+  color: white;
+  font-size: 2vw;
+  line-height: 0px;
+}
